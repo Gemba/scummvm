@@ -544,7 +544,7 @@ public:
 		// TODO
 	}
 
-	virtual void showOverlay() {
+	virtual void showOverlay(bool inGui) {
 		_overlayVisible = true;
 	}
 
@@ -598,7 +598,7 @@ public:
 		_mouseY = y;
 	}
 
-	virtual void setMouseCursor(const void *buf, uint w, uint h, int hotspotX, int hotspotY, uint32 keycolor = 255, bool dontScale = false, const Graphics::PixelFormat *format = NULL) {
+	virtual void setMouseCursor(const void *buf, uint w, uint h, int hotspotX, int hotspotY, uint32 keycolor = 255, bool dontScale = false, const Graphics::PixelFormat *format = NULL, const byte *mask = nullptr) {
 		const Graphics::PixelFormat mformat = format ? *format : Graphics::PixelFormat::createFormatCLUT8();
 
 		if (_mouseImage.w != w || _mouseImage.h != h || _mouseImage.format != mformat) {
@@ -1234,7 +1234,7 @@ public:
 
 		} else {
 
-			ConfMan.loadDefaultConfigFile();
+			ConfMan.loadDefaultConfigFile(getDefaultConfigFileName());
 			if (ConfMan.hasGameDomain(data)) {
 				res = TEST_GAME_OK_TARGET_FOUND;
 			} else {
